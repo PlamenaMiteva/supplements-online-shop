@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Product } from '../../../dto/product.model';
+import { ProductService } from '../../product.service';
 
 @Component({
   selector: 'app-product-item',
@@ -8,9 +9,10 @@ import { Product } from '../../../dto/product.model';
 })
 export class ProductItemComponent {
   @Input() product: Product;
-  @Output() productSelected = new EventEmitter<void>();
+
+  constructor(private productService: ProductService){}
 
   onSelected(){
-    this.productSelected.emit();
+    this.productService.productSelected.emit(this.product);
   }
 }

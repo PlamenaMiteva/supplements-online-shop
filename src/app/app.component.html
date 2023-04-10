@@ -1,4 +1,4 @@
 <app-header></app-header>
-<app-products-list (productWasSelected)="selectedProduct=$event"></app-products-list>
-<app-product-details *ngIf="selectedProduct" [product]="selectedProduct" (productAdded)="addSelectedProductToCart(selectedProduct)"></app-product-details> 
-<app-shopping-cart [products]="cartProductList" (productWasAdded)="addProductToCart(selectedProduct)"></app-shopping-cart>
+<app-products-list></app-products-list>
+<app-product-details *ngIf="selectedProduct" [product]="selectedProduct"></app-product-details> 
+<app-shopping-cart></app-shopping-cart>

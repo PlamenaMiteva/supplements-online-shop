@@ -1,7 +1,7 @@
 <div class="container">
     <div fxLayout="row wrap" fxLayoutGap="1rem grid">
         <div class="product-list__container" fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="25%" *ngFor="let productEl of products">
-            <app-product-item [product]="productEl" (productSelected)="onProductSelected(productEl)">
+            <app-product-item [product]="productEl">
         </app-product-item>
         </div>
     </div>
