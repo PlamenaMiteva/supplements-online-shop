@@ -1,13 +1,47 @@
-<mat-toolbar color="primary" class="header">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>My App</span>
-    <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+<mat-toolbar color="primary">
+  <div fxHide.gt-xs>
+      <button mat-icon-button (click)="onToggleSidenav()">
+          <mat-icon>menu</mat-icon>
+      </button>
+  </div>
+    <img src="https://dcassetcdn.com/design_img/2114770/595308/595308_11195763_2114770_94c001b1_image.jpg">
+    <div fxFlex="90%" fxLayout fxLayoutAlign="center" fxHide.xs>
+       <ul fxLayout fxLayoutGap="2rem" class="navigation-items">
+          <li>
+              <a routerLink="/products/vitamins" routerLinkActive="active">VITAMINS</a>
+          </li>
+          <li>
+              <a routerLink="/products/minerals" routerLinkActive="active">MINERALS</a>
+          </li>
+          <li>
+            <a routerLink="/products/health" routerLinkActive="active">HEALTH</a>
+        </li>
+          <li>
+            <a routerLink="/products/sport" routerLinkActive="active">SPORT</a>
+        </li>
+      </ul>
+    </div>
+  <div fxFlex="10%" fxLayout fxLayoutAlign="end">
+    <button mat-icon-button routerLinkActive="active">
       <mat-icon>favorite</mat-icon>
     </button>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <button mat-icon-button routerLink="/shopping-cart" routerLinkActive="active">
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
+  </div>  
+</mat-toolbar>
+
+<!-- <mat-toolbar color="primary" class="header">
+    <img src="https://dcassetcdn.com/design_img/2114770/595308/595308_11195763_2114770_94c001b1_image.jpg">
+    <button mat-icon-button class="example-icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+   
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon favorite-icon">
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon">
       <mat-icon>share</mat-icon>
     </button>
-  </mat-toolbar>
+  </mat-toolbar> -->

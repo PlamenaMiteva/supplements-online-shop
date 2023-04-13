@@ -13,8 +13,8 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$supplemets-online-shop-primary: mat.define-palette(mat.$indigo-palette, 800);
-$supplemets-online-shop-accent: mat.define-palette(mat.$amber-palette, A200, A100, A400);
+$supplemets-online-shop-primary: mat.define-palette(mat.$light-green-palette, 500);
+$supplemets-online-shop-accent: mat.define-palette(mat.$orange-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $supplemets-online-shop-warn: mat.define-palette(mat.$red-palette);
@@ -35,7 +35,6 @@ $supplemets-online-shop-theme: mat.define-light-theme((
 @include mat.all-component-themes($supplemets-online-shop-theme);
 
 $color-config: mat.get-color-config($supplemets-online-shop-theme);
-$accent-palette:  map.get($color-config, 'accent');
 
 /* You can add global styles to this file, and also import other style files */
 *{
@@ -43,6 +42,7 @@ $accent-palette:  map.get($color-config, 'accent');
 }
 
 html, body { 
+  margin: 0;
   height: 100%; 
 }
 
@@ -50,10 +50,30 @@ body {
   margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
 }
 
+main {
+  padding: 1rem 0;
+}
+
+@media screen and (min-width: 50rem) {
+  main {
+    padding: 1rem 10rem;
+  }
+}
+
+mat-sidenav-container, mat-sidenav-content, mat-sidenav {
+  height: 100%;
+}
+
+mat-sidenav {
+  width: 100%;
+}
+
+
+
 // button[mat-raised-button]{
 //   background-color: $accent-palette;
 // }
 
-.example-spacer {
-  flex: 1 1 auto;
-}
+// .example-spacer {
+//   flex: 1 1 auto;
+// }

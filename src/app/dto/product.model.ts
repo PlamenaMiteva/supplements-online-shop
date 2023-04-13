@@ -1,15 +1,19 @@
-export class Product {
-    public name: string;
-    public quantity: string;
-    public description: string;
-    public imageUrl: string;
-    public price: number;
+import { Category } from "./category.model";
 
-    constructor(name: string, quantity: string, desc: string, imageUrl: string, price: number){
-        this.name = name;
-        this.quantity = quantity;
-        this.description = desc;
-        this.imageUrl = imageUrl;
-        this.price = price;
-    }
+export class Product {
+  public name: string;
+  public category: Category;
+  public quantity: string;
+  public description: string;
+  public imageUrl: string;
+  public price: number;
+
+  constructor(name: string, category: Category, quantity: string, description: string, imagePath: string, price: number) {
+    this.name = name;
+    this.category = category;
+    this.quantity = quantity;
+    this.description = description;
+    this.imageUrl = imagePath;
+    this.price = price;
+  }
 }

@@ -1,0 +1,19 @@
+<form #orderForm="ngForm" fxLayout="column" fxFlex="60%" fxFlex.sm="100%" (ngSubmit)="onAddOrder(orderForm)">  
+    <mat-form-field appearance="outline">
+        <mat-label>First name</mat-label>
+        <input name="name" ngModel matInput required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email" name="email" ngModel matInput required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Phone</mat-label>
+        <input type="phone" name="phone" ngModel matInput required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Address</mat-label>
+        <textarea name="address" ngModel matInput required></textarea>
+      </mat-form-field>
+      <button type="submit" mat-raised-button color="primary" [disabled]="!orderForm.valid">ORDER</button>
+  </form>

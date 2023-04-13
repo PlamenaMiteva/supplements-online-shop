@@ -1,16 +1,25 @@
-import { EventEmitter } from "@angular/core";
+import { OrderItem } from "../dto/order-item";
 import { Product } from "../dto/product.model";
+import { Subject } from "rxjs";
 
 export class ShoppingCartService {
-  shoppingCartChanged = new EventEmitter<Product[]>();
-  private products: Product[] = [];
+  shoppingCartChanged = new Subject<OrderItem[]>();
+  private products: OrderItem[] = [];
 
   getShoppingCartProducts() {
     return this.products.slice();
   }
 
-  addProduct(product: Product) {
-    this.products.push(product);
-    this.shoppingCartChanged.emit(this.products.slice());
+  addProduct(product: Product, quantity: number) {
+    this.products.push(new OrderItem(product, quantity));
+    this.shoppingCartChanged.next(this.products.slice());
+  }
+
+  getNumberOfProducts(){
+    return this.products.reduce(( sum , item ) => sum + item.quantity , 0);
+  }
+
+  getTotalAmount(){
+    return this.products.reduce(( sum , item ) => sum + item.quantity * item.product.price , 0);
   }
 }

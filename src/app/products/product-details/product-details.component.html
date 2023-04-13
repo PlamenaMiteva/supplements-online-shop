@@ -8,12 +8,12 @@
             <div>{{product.name}}</div>
             <div>{{product.price}}</div>
             <div class="product-details__header_quantity_button" fxLayout="row wrap">
-                <input type="number" matInput placeholder="1">
+                <input #quantityInput type="text" matInput [(ngModel)]="this.quantity">
                 <div class="button_wrapper" fxLayout="column">
-                    <mat-icon matSuffix>keyboard_arrow_up</mat-icon>
-                    <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                    <mat-icon matSuffix (click)="increment()">keyboard_arrow_up</mat-icon>
+                    <mat-icon matSuffix (click)="decrement()">keyboard_arrow_down</mat-icon>
                 </div>
-                <button mat-mini-fab color="primary" (click)="addProductToCart(product)">
+                <button mat-mini-fab color="primary" (click)="addProductToCart()">
                     <mat-icon>shopping_cart</mat-icon>
                 </button>
             </div>

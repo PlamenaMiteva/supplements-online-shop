@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Product } from '../../../dto/product.model';
-import { ProductService } from '../../product.service';
 
 @Component({
   selector: 'app-product-item',
@@ -9,10 +8,6 @@ import { ProductService } from '../../product.service';
 })
 export class ProductItemComponent {
   @Input() product: Product;
-
-  constructor(private productService: ProductService){}
-
-  onSelected(){
-    this.productService.productSelected.emit(this.product);
-  }
+  @Input() index: number;
+  
 }

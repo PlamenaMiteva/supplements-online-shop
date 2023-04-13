@@ -1,4 +1,20 @@
-<app-header></app-header>
-<app-products-list></app-products-list>
+<!-- <app-header></app-header>
+<router-outlet></router-outlet> -->
+<!-- <app-products-list></app-products-list>
 <app-product-details *ngIf="selectedProduct" [product]="selectedProduct"></app-product-details> 
-<app-shopping-cart></app-shopping-cart>
+<app-shopping-cart></app-shopping-cart> -->
+
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav role="navigation">
+        <app-sidenav-list (sidenavClose)="sidenav.close()"></app-sidenav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+

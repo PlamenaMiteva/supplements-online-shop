@@ -6,6 +6,6 @@
         <mat-card-subtitle>{{product.price}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="onSelected()">DETAILS</button>
+        <button mat-raised-button color="primary" [routerLink]="['/product', index]">DETAILS</button>
     </mat-card-actions>
 </mat-card>

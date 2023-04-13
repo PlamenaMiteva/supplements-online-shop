@@ -1,4 +1,65 @@
-<h1>Shopping Cart</h1>
-<div *ngFor="let productEl of products">
-    <div>{{productEl.name}}</div>
-<div>
+<div fxLayout="row wrap" fxLayoutGap="2rem" *ngIf="this.products.length else emptyCart">
+    <div fxLayout="column" fxFlex="60%" fxFlex.md="100%" fxFlex.sm="100%" *ngFor="let item of products">
+        <mat-card>
+            <md-card-header fxLayout="row">
+                <mat-icon color="accent" fxFlex fxLayoutAlign="end">clear</mat-icon>
+            </md-card-header>
+            <mat-card-header fxLayoutAlign="space-between center">
+                <img mat-card-sm-image src="{{item.product.imageUrl}}" alt="{{item.product.name}}">
+                <mat-card-title-group fxLayoutAlign="space-between center">
+                    <mat-card-title>{{item.product.name}}</mat-card-title>
+                    <mat-card-subtitle>{{item.product.quantity}}</mat-card-subtitle>
+                    <mat-card-subtitle fxLayoutAlign="space-between center">
+                        <mat-icon color="accent">add_circle</mat-icon>
+                        <mat-icon color="accent">remove_circle</mat-icon>
+                        {{item.quantity}} x {{item.product.price | currency:'BGN'}}
+                    </mat-card-subtitle>
+                </mat-card-title-group>
+                <mat-card-title-group fxLayoutAlign="end stretch">
+                    <mat-card-title color="accent">{{item.product.price * item.quantity|
+                        currency:'BGN'}}</mat-card-title>
+                </mat-card-title-group>
+            </mat-card-header>
+        </mat-card>
+    </div>
+    <div fxFlex="35%" fxFlex.sm="100%">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>ORDER</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <p>Number of products</p>
+                    <p>{{numberOfProducts}}</p>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <p>Amount</p>
+                    <p>{{amount | currency:'BGN'}}</p>
+                </div>
+            </mat-card-content>
+            <mat-divider></mat-divider>
+            <mat-card-footer>
+                <mat-card-actions>
+                    <button mat-raised-button color="primary">CONTINUE</button>
+                </mat-card-actions>
+            </mat-card-footer>
+        </mat-card>
+    </div>
+</div>
+
+<ng-template #emptyCart>
+    <mat-card>
+        <mat-card-header fxLayoutAlign="center">
+            <mat-card-title>Your shopping cart is empty</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content fxLayoutAlign="center">
+            <p>Add products to the shopping cart</p>
+        </mat-card-content>        
+        <mat-card-footer>
+            <mat-card-actions fxLayoutAlign="center">
+                <button mat-raised-button color="primary" [routerLink]="['']">ADD</button>
+            </mat-card-actions>
+        </mat-card-footer>
+    </mat-card>
+</ng-template>
