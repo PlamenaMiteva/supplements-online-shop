@@ -27,7 +27,6 @@ export interface AuthResponseData {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   user = new BehaviorSubject<User | null>(null);
-  currentUser: User | null = null;
   private _tokenExpirationTimer: any;
 
   constructor(
@@ -50,31 +49,21 @@ export class AuthService {
         catchError(this.handleError),
         mergeMap((resData) => {
           return this.userService.createUser(resData.localId).pipe(
-            map((data) => {
+            map((data: any) => {
+              resData.key = data.name;
               return resData;
             })
           );
         }),
-        mergeMap((resData) =>
-          this.userService.getUserProfile().pipe(
-            map((userData) => {
-              const user = userData.find((x) => x.userId === resData.localId);
-              resData.key = user?.key || '';
-              resData.favorites = user?.favorites ? [...user.favorites] : [];
-              return resData;
-            }),
-            tap((data) => {
-              this.handleAuthentication(
-                data.email,
-                data.localId,
-                data.idToken,
-                +data.expiresIn,
-                data.favorites,
-                data.key
-              );
-            })
-          )
-        )
+        tap((data) => {
+          this.handleAuthentication(
+            data.email,
+            data.localId,
+            data.idToken,
+            +data.expiresIn,
+            data.key
+          );
+        })
       );
   }
 
@@ -90,20 +79,12 @@ export class AuthService {
       )
       .pipe(
         catchError(this.handleError),
-        // tap((resData) => {
-        //   this.handleAuthentication(
-        //     resData.email,
-        //     resData.localId,
-        //     resData.idToken,
-        //     +resData.expiresIn
-        //   );
-        // }),
         mergeMap((resData) =>
           this.userService.getUserProfile().pipe(
             map((userData) => {
               const user = userData.find((x) => x.userId === resData.localId);
               resData.key = user?.key || '';
-              resData.favorites = user?.favorites ? [...user.favorites] : [];
+              resData.favorites = user?.favorites || [];
               return resData;
             }),
             tap((data) => {
@@ -112,8 +93,8 @@ export class AuthService {
                 data.localId,
                 data.idToken,
                 +data.expiresIn,
-                data.favorites,
-                data.key
+                data.key,
+                data.favorites
               );
             })
           )
@@ -129,7 +110,6 @@ export class AuthService {
       clearTimeout(this._tokenExpirationTimer);
     }
     this._tokenExpirationTimer = null;
-    this.currentUser = null;
   }
 
   autoLogin() {
@@ -151,13 +131,11 @@ export class AuthService {
         userData.id,
         userData._token,
         new Date(userData._tokenExpiritionDate),
-        userData.favorites || [],
         userData.key
       );
 
       if (loggedUser.token) {
         this.user.next(loggedUser);
-        this.currentUser = loggedUser;
         const expirationDuration = new Date(userData._tokenExpiritionDate).getTime()-new Date().getTime();
         this.autoLogout(expirationDuration);
       }
@@ -170,23 +148,20 @@ export class AuthService {
     }, expirationDuration);
   }
 
-  getCurrentUser(){
-    return this.currentUser;
-  }
-
   private handleAuthentication(
     email: string,
     userId: string,
     token: string,
     expiresIn: number,
-    favorites?: Product[],
-    key?: string
+    key?: string,
+    favorites: Product[] = []
   ) {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-    const user = new User(email, userId, token, expirationDate, favorites, key);
+    const user = new User(email, userId, token, expirationDate, key);
 
+    this.userService.setFavorites(favorites);
     this.user.next(user);
-    this.currentUser = user;
+    
     this.autoLogout(expiresIn * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
   }

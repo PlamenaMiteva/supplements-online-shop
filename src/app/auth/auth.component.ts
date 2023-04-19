@@ -58,15 +58,6 @@ export class AuthComponent {
         this.loading = false;
       },
       next: (responseData) => {
-        // if (!this.loginMode) {
-        //   this.userService.createUser(responseData.localId);
-        // } 
-        // else{
-        //   this.userService.getUserProfile(responseData.localId).subscribe(data=>{
-        //     const user = data.find((x) => x.userId === responseData.localId);
-        //     responseData.favorites = user?.favorites || [];
-        //   });          
-        // }
         console.log(responseData);
         this.loading = false;
         this.router.navigate(['/products']);

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Product } from '../../../dto/product.model';
 import { UserService } from 'src/app/auth/user.service';
 import { AuthService } from 'src/app/auth/auth.service';
-import { take } from 'rxjs';
+import { map, mergeMap, take } from 'rxjs';
 import { User } from 'src/app/dto/user.model';
 import { UserProfile } from 'src/app/dto/user-profile';
 
@@ -15,6 +15,7 @@ export class ProductItemComponent {
   @Input() product: Product;
   @Input() index: number;
   private user: User | null = null;
+  private favorites: Product[];
 
   constructor(
     private authService: AuthService,
@@ -22,18 +23,30 @@ export class ProductItemComponent {
   ) {}
 
   ngOnInit(): void {
-    this.user = this.authService.getCurrentUser();
-    // this.authService.user.pipe(take(1)).subscribe((user) => {
-    //   this.user = user;
-    // });
+    this.authService.user
+      .pipe(
+        take(1),
+        mergeMap((resData) =>
+          this.userService.getUserProfile().pipe(
+            map((userData) => {
+              const user = userData.find((x) => x.userId === resData?.id);
+              this.userService.favoritesList = user?.favorites || [];
+              return resData;
+            })
+          )
+        )
+      ).subscribe((user) => {
+      this.user = user;
+      this.favorites = this.userService.getFavorites();
+    });
   }
 
   addFavorite() {
     if (this.user) {
-      this.user.favorites?.push(this.product);
-      this.userService.updateFavorites(
+      this.favorites.push(this.product);
+      this.userService.addFavoriteItem(
         this.user.key,
-        new UserProfile(this.user.id, [...(this.user.favorites || [])])
+        new UserProfile(this.user.id, [...(this.favorites || [])])
       );
     }
   }
