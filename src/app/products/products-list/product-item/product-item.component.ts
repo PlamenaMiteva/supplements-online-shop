@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
+
+import { map, mergeMap, take } from 'rxjs';
+
 import { Product } from '../../../dto/product.model';
 import { UserService } from 'src/app/auth/user.service';
 import { AuthService } from 'src/app/auth/auth.service';
-import { map, mergeMap, take } from 'rxjs';
 import { User } from 'src/app/dto/user.model';
 import { UserProfile } from 'src/app/dto/user-profile';
 
@@ -27,24 +29,26 @@ export class ProductItemComponent {
       .pipe(
         take(1),
         mergeMap((resData) =>
-          this.userService.getUserProfile().pipe(
+          this.userService.getUserProfile(resData?.id || '').pipe(
             map((userData) => {
-              const user = userData.find((x) => x.userId === resData?.id);
-              this.userService.favoritesList = user?.favorites || [];
+              this.favorites = userData?.favorites || [];
+              if (resData) {
+                resData.key = userData?.key || '';
+              }
               return resData;
             })
           )
         )
-      ).subscribe((user) => {
-      this.user = user;
-      this.favorites = this.userService.getFavorites();
-    });
+      )
+      .subscribe((user) => {
+        this.user = user;
+      });
   }
 
   addFavorite() {
     if (this.user) {
       this.favorites.push(this.product);
-      this.userService.addFavoriteItem(
+      this.userService.updateFavorites(
         this.user.key,
         new UserProfile(this.user.id, [...(this.favorites || [])])
       );

@@ -27,28 +27,25 @@ export class FavoritesComponent implements OnInit {
       .pipe(
         take(1),
         mergeMap((resData) =>
-          this.userService.getUserProfile().pipe(
+          this.userService.getUserProfile(resData?.id ||'').pipe(
             map((userData) => {
-              const user = userData.find((x) => x.userId === resData?.id);
-              this.userService.favoritesList = user?.favorites || [];
+              this._userKey = userData?.key || '';
+              this.favoritesList = userData?.favorites || [];
               return resData;
             })
           )
         )
       )
       .subscribe((user) => {
-        this._userKey = user?.key || '';
         this._userId = user?.id || '';
-        this.favoritesList = this.userService.getFavorites();
       });
   }
 
   onRemoveFromFavorites(index: number) {
     this.favoritesList.splice(index, 1);
-    this.userService.deleteFavoriteItem(
+    this.userService.updateFavorites(
       this._userKey,
-      new UserProfile(this._userId, this.favoritesList || []),
-      index
+      new UserProfile(this._userId, this.favoritesList || [])
     );
   }
 }

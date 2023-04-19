@@ -1,4 +1,5 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import {
   BehaviorSubject,
@@ -8,8 +9,8 @@ import {
   tap,
   throwError,
 } from 'rxjs';
+
 import { User } from '../dto/user.model';
-import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import { Product } from '../dto/product.model';
 
@@ -78,27 +79,16 @@ export class AuthService {
         }
       )
       .pipe(
-        catchError(this.handleError),
-        mergeMap((resData) =>
-          this.userService.getUserProfile().pipe(
-            map((userData) => {
-              const user = userData.find((x) => x.userId === resData.localId);
-              resData.key = user?.key || '';
-              resData.favorites = user?.favorites || [];
-              return resData;
-            }),
-            tap((data) => {
-              this.handleAuthentication(
-                data.email,
-                data.localId,
-                data.idToken,
-                +data.expiresIn,
-                data.key,
-                data.favorites
-              );
-            })
-          )
-        )
+        tap((data) => {
+          this.handleAuthentication(
+            data.email,
+            data.localId,
+            data.idToken,
+            +data.expiresIn,
+            data.key
+          );
+        }),
+        catchError(this.handleError)
       );
   }
 
@@ -153,13 +143,11 @@ export class AuthService {
     userId: string,
     token: string,
     expiresIn: number,
-    key?: string,
-    favorites: Product[] = []
+    key?: string
   ) {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(email, userId, token, expirationDate, key);
 
-    this.userService.setFavorites(favorites);
     this.user.next(user);
     
     this.autoLogout(expiresIn * 1000);
