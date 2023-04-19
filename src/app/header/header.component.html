@@ -21,9 +21,15 @@
         </li>
       </ul>
     </div>
-  <div fxFlex="10%" fxLayout fxLayoutAlign="end">
-    <button mat-icon-button routerLinkActive="active">
-      <mat-icon>favorite</mat-icon>
+  <div class="test" fxFlex="10%" fxLayout fxLayoutAlign="end">
+    <button mat-icon-button *ngIf="!userAuthenticated" routerLink="/auth" routerLinkActive="active">
+      <mat-icon>person</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="userAuthenticated" routerLink="/auth" (click)="onLogout()">
+      <mat-icon>logout</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="userAuthenticated" routerLink="/favorites" routerLinkActive="active">
+      <mat-icon>favorites</mat-icon>
     </button>
     <button mat-icon-button routerLink="/shopping-cart" routerLinkActive="active">
       <mat-icon>shopping_cart</mat-icon>

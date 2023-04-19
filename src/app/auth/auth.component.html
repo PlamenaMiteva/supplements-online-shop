@@ -1,0 +1,19 @@
+<form #authForm="ngForm" *ngIf="!this.loading else loadingSpinner" fxLayout="column" (ngSubmit)="onSubmit(authForm)">
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email" name="email" matInput ngModel required email>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input type="password" name="password" matInput ngModel required minlength="6">
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary" [disabled]="!authForm.valid">{{loginMode? 'LOGIN' : 'SIGN UP'}}</button>
+    <button type="button" mat-raised-button color="accent" (click)="onSwitchMode()">SWITCH MODE</button>
+</form>
+
+
+<ng-template #loadingSpinner>
+    <div class="loading-spinner" fxLayout="column" fxLayoutAlign="center center">
+        <mat-spinner color="primary"></mat-spinner>
+    </div>
+</ng-template>

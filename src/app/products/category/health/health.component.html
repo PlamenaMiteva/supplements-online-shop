@@ -1,6 +1,6 @@
 <div>
     <div fxLayout="row wrap" fxLayoutGap="1rem grid">
-        <div fxFlex="25%" fxFlex.md="33%" fxFlex.sm="100%" fxFlex.xs="100%"*ngFor="let productEl of products; let i = index">
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.md="33%" *ngFor="let productEl of products; let i = index">
             <app-product-item [product]="productEl" [index]="i">
             </app-product-item>
         </div>
