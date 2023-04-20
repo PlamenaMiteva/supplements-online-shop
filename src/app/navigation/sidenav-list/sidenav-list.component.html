@@ -7,21 +7,21 @@
             <mat-icon color="accent" class="list-item_icon">home</mat-icon>
             <span class="nav-caption">HOME</span>
         </a>
-        <a mat-list-item routerLink="/products/vitamins" (click)="onSidenavClose()">
+        <a mat-list-item [routerLink]="['/products', 'Category.Vitamins']" (click)="onSidenavClose()">
             <mat-icon color="accent" class="list-item_icon">monitor_heart</mat-icon>
-            <span class="nav-caption">VITAMINS</span>
+            <span class="nav-caption">{{Category.Vitamins}}</span>
         </a>
-        <a mat-list-item routerLink="products/minerals" (click)="onSidenavClose()">
+        <a mat-list-item [routerLink]="['/products', 'Category.Minerals']" (click)="onSidenavClose()">
             <mat-icon color="accent" class="list-item_icon">spa</mat-icon>
-            <span class="nav-caption">MINERALS</span>
+            <span class="nav-caption">{{Category.Minerals}}</span>
         </a>
-        <a mat-list-item routerLink="products/health" (click)="onSidenavClose()">
+        <a mat-list-item [routerLink]="['/products', 'Category.Health']" (click)="onSidenavClose()">
             <mat-icon color="accent" class="list-item_icon">heart_broken</mat-icon>
-            <span class="nav-caption">HEALTH</span>
+            <span class="nav-caption">{{Category.Health}}</span>
         </a>
-        <a mat-list-item routerLink="products/sport" (click)="onSidenavClose()">
+        <a mat-list-item [routerLink]="['/products', 'Category.Sport']" (click)="onSidenavClose()">
             <mat-icon color="accent" class="list-item_icon">sports_gymnastics</mat-icon>
-            <span class="nav-caption">SPORT</span>
+            <span class="nav-caption">{{Category.Sport}}</span>
         </a>
     </mat-nav-list>
 </div>

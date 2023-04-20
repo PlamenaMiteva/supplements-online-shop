@@ -1,6 +1,6 @@
 export enum Category {
   Vitamins,
   Minerals,
-  Sports,
+  Sport,
   Health
 }

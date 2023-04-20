@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Category } from 'src/app/dto/category.model';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -6,6 +7,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./sidenav-list.component.scss']
 })
 export class SidenavListComponent {
+  Category = Category;
   @Output() sidenavClose = new EventEmitter();
 
   constructor() { }

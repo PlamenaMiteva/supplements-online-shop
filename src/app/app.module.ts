@@ -31,10 +31,6 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 import { ShippingComponent } from './shopping-cart/shipping/shipping.component';
 import {AuthComponent} from './auth/auth.component';
 import { FavoritesComponent } from './favorites/favorites.component';
-import { VitaminsComponent } from './products/category/vitamins/vitamins.component';
-import { MinaralsComponent } from './products/category/minarals/minarals.component';
-import { HealthComponent } from './products/category/health/health.component';
-import { SportComponent } from './products/category/sport/sport.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAAYA8-8jEi1E43K-zRBIpaHqkDYp2pGyQ",
@@ -58,11 +54,7 @@ const firebaseConfig = {
     SidenavListComponent,
     ShippingComponent,
     AuthComponent,
-    FavoritesComponent,
-    VitaminsComponent,
-    MinaralsComponent,
-    HealthComponent,
-    SportComponent,
+    FavoritesComponent
   ],
   imports: [
     BrowserModule,
