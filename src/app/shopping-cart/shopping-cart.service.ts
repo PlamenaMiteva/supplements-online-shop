@@ -11,7 +11,18 @@ export class ShoppingCartService {
   }
 
   addProduct(product: Product, quantity: number) {
+    
     this.products.push(new OrderItem(product, quantity));
+    this.shoppingCartChanged.next(this.products.slice());
+  }
+
+  removeProduct(index: number){
+    this.products.splice(index, 1);
+    this.shoppingCartChanged.next(this.products.slice());
+  }
+
+  updateQuantity(index: number, isAdd = true){
+    this.products[index].quantity = isAdd? this.products[index].quantity++ : this.products[index].quantity--;
     this.shoppingCartChanged.next(this.products.slice());
   }
 

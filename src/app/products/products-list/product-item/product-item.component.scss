@@ -11,16 +11,7 @@ mat-card-actions > button {
 
 mat-card-header {
     display: inline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
-
-// @media screen and (max-width: 1070px) {
-//     mat-card {
-//         font-size: 0.7rem;
-//     }
-//   }
-
-//   @media screen and (max-width: 40rem) {
-//     mat-card {
-//         font-size: 1.2rem;
-//     }
-//   }

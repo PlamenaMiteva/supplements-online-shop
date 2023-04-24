@@ -1,8 +1,9 @@
-<div fxLayout="row wrap" fxLayoutGap="2rem" *ngIf="this.products.length else emptyCart">
-    <div fxLayout="column" fxFlex="60%" fxFlex.md="100%" fxFlex.sm="100%" *ngFor="let item of products">
+ <div fxLayout="row wrap" fxLayoutGap="2rem grid" *ngIf="$any(products|async).products.length else emptyCart">
+    <div fxLayout="column" fxLayoutGap="1rem" fxFlex="60%" fxFlex.md="100%" fxFlex.sm="100%" >
+    <div fxLayout="column" *ngFor="let item of $any(products|async).products; let i = index">
         <mat-card>
             <md-card-header fxLayout="row">
-                <mat-icon color="accent" fxFlex fxLayoutAlign="end">clear</mat-icon>
+                <mat-icon color="accent" fxFlex fxLayoutAlign="end" (click)="onRemoveProduct(i)">clear</mat-icon>
             </md-card-header>
             <mat-card-header fxLayoutAlign="space-between center">
                 <img mat-card-sm-image src="{{item.product.imageUrl}}" alt="{{item.product.name}}">
@@ -10,8 +11,8 @@
                     <mat-card-title>{{item.product.name}}</mat-card-title>
                     <mat-card-subtitle>{{item.product.quantity}}</mat-card-subtitle>
                     <mat-card-subtitle fxLayoutAlign="space-between center">
-                        <mat-icon color="accent">add_circle</mat-icon>
-                        <mat-icon color="accent">remove_circle</mat-icon>
+                        <mat-icon color="accent" (click)="onUpdateQuantity(i)">add_circle</mat-icon>
+                        <mat-icon color="accent" (click)="onUpdateQuantity(i, false)">remove_circle</mat-icon>
                         {{item.quantity}} x {{item.product.price | currency:'BGN'}}
                     </mat-card-subtitle>
                 </mat-card-title-group>
@@ -20,8 +21,10 @@
                         currency:'BGN'}}</mat-card-title>
                 </mat-card-title-group>
             </mat-card-header>
-        </mat-card>
+        </mat-card>        
     </div>
+    <button mat-raised-button color="primary" [routerLink]="['/products']">ADD MORE PRODUCTS</button>
+</div>
     <div fxFlex="35%" fxFlex.md="100%" fxFlex.sm="100%">
         <mat-card>
             <mat-card-header>
@@ -30,17 +33,17 @@
             <mat-card-content>
                 <div fxLayout="row" fxLayoutAlign="space-between center">
                     <p>Number of products</p>
-                    <p>{{numberOfProducts}}</p>
+                    <p>{{$any(products|async).numberOfProducts}}</p>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="space-between center">
                     <p>Amount</p>
-                    <p>{{amount | currency:'BGN'}}</p>
+                    <p>{{$any(products|async).totalAmount | currency:'BGN'}}</p>
                 </div>
             </mat-card-content>
             <mat-divider></mat-divider>
             <mat-card-footer>
                 <mat-card-actions>
-                    <button mat-raised-button color="primary">CONTINUE</button>
+                    <button mat-raised-button color="primary" [routerLink]="['/shipping']">CONTINUE</button>
                 </mat-card-actions>
             </mat-card-footer>
         </mat-card>
@@ -58,7 +61,7 @@
         </mat-card-content>        
         <mat-card-footer>
             <mat-card-actions fxLayoutAlign="center">
-                <button mat-raised-button color="primary" [routerLink]="['']">ADD</button>
+                <button mat-raised-button color="primary" [routerLink]="['/products']">ADD</button>
             </mat-card-actions>
         </mat-card-footer>
     </mat-card>

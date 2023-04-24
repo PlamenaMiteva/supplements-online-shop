@@ -3,25 +3,25 @@
 </div>
 <div fxLayout="column" fxLayoutAlign="start">
     <mat-nav-list>
-        <a mat-list-item routerLink="/home" (click)="onSidenavClose()">
+        <a mat-list-item routerLink="/products" (click)="onSidenavClose()">
             <mat-icon color="accent" class="list-item_icon">home</mat-icon>
             <span class="nav-caption">HOME</span>
         </a>
-        <a mat-list-item [routerLink]="['/products', 'Category.Vitamins']" (click)="onSidenavClose()">
+        <a mat-list-item [routerLink]="['/products', 'Vitamins']" (click)="onSidenavClose()">
             <mat-icon color="accent" class="list-item_icon">monitor_heart</mat-icon>
-            <span class="nav-caption">{{Category.Vitamins}}</span>
+            <span class="nav-caption">Vitamins</span>
         </a>
-        <a mat-list-item [routerLink]="['/products', 'Category.Minerals']" (click)="onSidenavClose()">
+        <a mat-list-item [routerLink]="['/products', 'Minerals']" (click)="onSidenavClose()">
             <mat-icon color="accent" class="list-item_icon">spa</mat-icon>
-            <span class="nav-caption">{{Category.Minerals}}</span>
+            <span class="nav-caption">Minerals</span>
         </a>
-        <a mat-list-item [routerLink]="['/products', 'Category.Health']" (click)="onSidenavClose()">
+        <a mat-list-item [routerLink]="['/products', 'Health']" (click)="onSidenavClose()">
             <mat-icon color="accent" class="list-item_icon">heart_broken</mat-icon>
-            <span class="nav-caption">{{Category.Health}}</span>
+            <span class="nav-caption">Health</span>
         </a>
-        <a mat-list-item [routerLink]="['/products', 'Category.Sport']" (click)="onSidenavClose()">
+        <a mat-list-item [routerLink]="['/products', 'Sport']" (click)="onSidenavClose()">
             <mat-icon color="accent" class="list-item_icon">sports_gymnastics</mat-icon>
-            <span class="nav-caption">{{Category.Sport}}</span>
+            <span class="nav-caption">Sport</span>
         </a>
     </mat-nav-list>
 </div>

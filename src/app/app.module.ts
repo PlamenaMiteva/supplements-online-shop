@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,19 +29,24 @@ import { ProductService } from './products/product.service';
 import { ShoppingCartService } from './shopping-cart/shopping-cart.service';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { ShippingComponent } from './shopping-cart/shipping/shipping.component';
-import {AuthComponent} from './auth/auth.component';
+import { AuthComponent } from './auth/auth.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAAYA8-8jEi1E43K-zRBIpaHqkDYp2pGyQ",
-  authDomain: "test-app-4e5fa.firebaseapp.com",
-  databaseURL: "https://test-app-4e5fa-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "test-app-4e5fa",
-  storageBucket: "test-app-4e5fa.appspot.com",
-  messagingSenderId: "514706764059",
-  appId: "1:514706764059:web:bcbc36bb89750a86cc63be"
-};
+import { ActionReducerMap, StoreModule } from '@ngrx/store';
+import * as fromApp from '../app/store/app.reducer';
+import { shoppingCartReducer } from './shopping-cart/store/shopping-cart.reducer';
+import { AuthReducer } from './auth/store/auth-reducer';
 
+const firebaseConfig = {
+  apiKey: 'AIzaSyAAYA8-8jEi1E43K-zRBIpaHqkDYp2pGyQ',
+  authDomain: 'test-app-4e5fa.firebaseapp.com',
+  databaseURL:
+    'https://test-app-4e5fa-default-rtdb.europe-west1.firebasedatabase.app',
+  projectId: 'test-app-4e5fa',
+  storageBucket: 'test-app-4e5fa.appspot.com',
+  messagingSenderId: '514706764059',
+  appId: '1:514706764059:web:bcbc36bb89750a86cc63be',
+};
 
 @NgModule({
   declarations: [
@@ -54,13 +59,14 @@ const firebaseConfig = {
     SidenavListComponent,
     ShippingComponent,
     AuthComponent,
-    FavoritesComponent
+    FavoritesComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    StoreModule.forRoot(fromApp.appReducer),
     BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
@@ -74,7 +80,7 @@ const firebaseConfig = {
     MatProgressSpinnerModule,
     FlexLayoutModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
   ],
   providers: [ProductService, ShoppingCartService],
   bootstrap: [AppComponent],

@@ -1,6 +1,7 @@
 <mat-card class="mat-elevation-z4">
     <md-card-header fxLayout="row">
-        <mat-icon fxFlex fxLayoutAlign="end" color="primary" [routerLink]="['/favorites']" (click)="this.addFavorite()">favorite_border</mat-icon> 
+        <mat-icon fxFlex fxLayoutAlign="end" color="primary" [routerLink]="['/favorites']"
+        (click)="this.addFavorite()">favorite_border</mat-icon> 
     </md-card-header>
     <img mat-card-image src="{{product.imageUrl}}" alt="{{product.name}}">
     <mat-card-header>

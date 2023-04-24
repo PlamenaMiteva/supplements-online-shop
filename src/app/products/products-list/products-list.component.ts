@@ -15,7 +15,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   category: Category;
   products?: Product[];
   subscription: Subscription;
-
+  
   private _category: string;
 
   constructor(private productService: ProductService, private route: ActivatedRoute,) {}

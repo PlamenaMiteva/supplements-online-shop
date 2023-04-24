@@ -5,6 +5,10 @@ import { Product } from '../../dto/product.model';
 import { ShoppingCartService } from '../../shopping-cart/shopping-cart.service';
 import { ProductService } from '../product.service';
 
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../store/app.reducer';
+import * as ShoppingCartActions from '../../shopping-cart/store/shopping-cart.actions';
+
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
@@ -19,7 +23,8 @@ export class ProductDetailsComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private scService: ShoppingCartService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private store: Store<fromApp.AppState>
   ) {}
 
   ngOnInit(): void {
@@ -31,18 +36,24 @@ export class ProductDetailsComponent implements OnInit {
 
   addProductToCart() {
     const productQuantity = +this.quantityInput.nativeElement.value;
-    this.scService.addProduct(this.product, productQuantity);
+    //this.scService.addProduct(this.product, productQuantity);
+    this.store.dispatch(
+      new ShoppingCartActions.AddProduct({
+        product: this.product,
+        quantity: productQuantity,
+      })
+    );
   }
 
-  increment(){
+  increment() {
     let number = +this.quantity;
     number++;
     this.quantity = number.toString();
   }
 
-  decrement(){
+  decrement() {
     let number = +this.quantity;
-    if(number < 2) return;
+    if (number < 2) return;
     number--;
     this.quantity = number.toString();
   }
