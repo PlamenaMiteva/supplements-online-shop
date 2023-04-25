@@ -61,7 +61,6 @@ export function shoppingCartReducer(
 
       const updatedProducts = [...state.products];
       updatedProducts[action.payload.index] = newProduct;
-      console.log(updatedProducts);
 
       return {
         ...state,

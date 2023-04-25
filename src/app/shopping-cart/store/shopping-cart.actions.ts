@@ -1,9 +1,9 @@
 import { Action } from '@ngrx/store';
 import { Product } from 'src/app/dto/product.model';
 
-export const ADD_PRODUCT = 'ADD_PRODUCT';
-export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
-export const UPDATE_QUANTITY = 'UPDATE_QUANTITY';
+export const ADD_PRODUCT = '[Shopping Cart] Add Product';
+export const REMOVE_PRODUCT = '[Shopping Cart] Remove Product';
+export const UPDATE_QUANTITY = '[Shopping Cart] Update Quantity';
 
 export class AddProduct implements Action {
   readonly type = ADD_PRODUCT;

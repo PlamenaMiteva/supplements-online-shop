@@ -32,10 +32,10 @@ import { ShippingComponent } from './shopping-cart/shipping/shipping.component';
 import { AuthComponent } from './auth/auth.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 
-import { ActionReducerMap, StoreModule } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import * as fromApp from '../app/store/app.reducer';
-import { shoppingCartReducer } from './shopping-cart/store/shopping-cart.reducer';
-import { AuthReducer } from './auth/store/auth-reducer';
+import { AuthEffects } from './auth/store/auth.effects';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAAYA8-8jEi1E43K-zRBIpaHqkDYp2pGyQ',
@@ -67,6 +67,7 @@ const firebaseConfig = {
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot(fromApp.appReducer),
+    EffectsModule.forRoot([AuthEffects]),
     BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
